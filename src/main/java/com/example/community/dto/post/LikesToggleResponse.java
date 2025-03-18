@@ -1,4 +1,4 @@
-package com.example.community.dto.interaction;
+package com.example.community.dto.post;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
