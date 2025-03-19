@@ -1,4 +1,4 @@
-package com.example.community.dto.user;
+package com.example.community.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserAuthResponse {
+public class LoginResponseDto {
     private Integer userId;
     private String accessToken;
     private String refreshToken;

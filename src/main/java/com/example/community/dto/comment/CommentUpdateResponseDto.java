@@ -1,4 +1,4 @@
-package com.example.community.dto.user;
+package com.example.community.dto.comment;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PasswordUpdateResponse {
-    private Integer userId;
+public class CommentUpdateResponseDto {
+    private Integer commentId;
 }

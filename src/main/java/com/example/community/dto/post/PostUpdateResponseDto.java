@@ -1,4 +1,4 @@
-package com.example.community.dto.comment;
+package com.example.community.dto.post;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class CommentCreateResponse {
-    private Integer commentId;
+public class PostUpdateResponseDto {
+    private Integer postId;
 }

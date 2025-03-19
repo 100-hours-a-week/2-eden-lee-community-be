@@ -9,8 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserReadResponse {
-    private String email;
-    private String nickname;
-    private String profileImage;
+public class UserUpdateResponseDto {
+    private Integer userId;
 }

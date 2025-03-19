@@ -1,4 +1,4 @@
-package com.example.community.dto.post;
+package com.example.community.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PostUpdateResponse {
-    private Integer postId;
+public class PasswordUpdateRequestDto {
+    private String password;
 }

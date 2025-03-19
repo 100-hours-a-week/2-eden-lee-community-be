@@ -1,4 +1,4 @@
-package com.example.community.dto.post;
+package com.example.community.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PostCreateResponse {
-    private Integer postId;
+public class UserUpdateRequestDto {
+    private String nickname;
+    private String profileImage;
 }

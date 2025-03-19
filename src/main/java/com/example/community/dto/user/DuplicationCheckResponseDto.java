@@ -9,6 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PasswordUpdateRequest {
-    private String password;
+public class DuplicationCheckResponseDto {
+    private String duplicationYn;
 }

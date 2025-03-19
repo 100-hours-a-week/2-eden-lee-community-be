@@ -9,6 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class CommentUpdateResponse {
+public class CommentCreateResponseDto {
     private Integer commentId;
 }

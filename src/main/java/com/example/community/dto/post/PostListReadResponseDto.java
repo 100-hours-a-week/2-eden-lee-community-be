@@ -1,6 +1,5 @@
 package com.example.community.dto.post;
 
-import com.example.community.dto.post.internal.PostDto;
 import com.example.community.dto.post.internal.PostMetaDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PostReadResponse {
-    private PostDto post;
+public class PostListReadResponseDto {
+    private List<PostMetaDto> posts;
+    private Integer totalCount;
 }

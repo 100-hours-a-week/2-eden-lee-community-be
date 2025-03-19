@@ -9,7 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserAuthRequest {
+public class UserReadResponseDto {
     private String email;
-    private String password;
+    private String nickname;
+    private String profileImage;
 }

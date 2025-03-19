@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class CommentUpdateRequest {
+public class CommentUpdateRequestDto {
     private Integer userId;
     private Integer postId;
     private String content;

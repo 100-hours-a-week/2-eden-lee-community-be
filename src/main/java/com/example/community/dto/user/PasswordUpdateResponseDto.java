@@ -1,4 +1,4 @@
-package com.example.community.dto.post;
+package com.example.community.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class LikesToggleResponse {
-    private Integer likesCount;
-    private String likesYn;
+public class PasswordUpdateResponseDto {
+    private Integer userId;
 }

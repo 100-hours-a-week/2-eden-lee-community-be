@@ -1,4 +1,4 @@
-package com.example.community.dto.post;
+package com.example.community.dto.comment;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class LikesToggleRequest {
+public class CommentCreateRequestDto {
     private Integer userId;
+    private Integer postId;
+    private String content;
 }
