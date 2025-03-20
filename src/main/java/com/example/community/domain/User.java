@@ -1,5 +1,6 @@
 package com.example.community.domain;
 
+import com.example.community.apiPayload.exception.handler.TempHandler;
 import com.example.community.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,4 +30,13 @@ public class User extends BaseEntity {
     @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Post> postList  = new ArrayList<>();
+
+    public void updateProfile(String nickname, String profileImageUrl) {
+        this.nickname = nickname;
+        this.profileImageUrl = profileImageUrl;
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
+    }
 }

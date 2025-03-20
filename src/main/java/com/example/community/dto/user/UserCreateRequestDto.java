@@ -13,5 +13,5 @@ public class UserCreateRequestDto {
     private String email;
     private String password;
     private String nickname;
-    private String profileImage;
+    private String profileImageUrl;
 }
