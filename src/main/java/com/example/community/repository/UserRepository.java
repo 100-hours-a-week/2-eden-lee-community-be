@@ -14,6 +14,8 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findById(Long id);
 
+    Optional<User> findByEmailAndPassword(String email, String password);
+
     @Query("SELECT u FROM User u WHERE u.email = :email AND u.deletedAt IS NULL")
     Optional<User> findActiveUserByEmail(@Param("email") String email);
 

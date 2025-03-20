@@ -15,8 +15,8 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ApiResponse<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequest) {
-        LoginResponseDto data = null;
+    public ApiResponse<LoginResponseDto> login(@RequestBody LoginRequestDto request) {
+        LoginResponseDto data = authService.login(request.getEmail(), request.getPassword());
         return ApiResponse.onSuccess(data);
     }
 }
