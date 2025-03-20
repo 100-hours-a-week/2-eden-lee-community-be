@@ -13,5 +13,5 @@ import lombok.Setter;
 public class PostCreateRequestDto {
     private Integer userId;
     private String title;
-    private ContentDto content;
+    private ContentDto contents;
 }

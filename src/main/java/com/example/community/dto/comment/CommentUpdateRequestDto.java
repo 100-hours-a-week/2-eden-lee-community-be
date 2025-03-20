@@ -12,5 +12,5 @@ import lombok.Setter;
 public class CommentUpdateRequestDto {
     private Integer userId;
     private Integer postId;
-    private String content;
+    private String contents;
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public class PostDto {
     private Integer postId;
     private String title;
-    private ContentDto content;
+    private ContentDto contents;
     private AuthorDto author;
     private CountDto counts;
     private String likeYn;
