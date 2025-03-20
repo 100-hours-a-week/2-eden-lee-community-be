@@ -23,4 +23,8 @@ public class Comment extends BaseEntity {
     @Lob
     @Column(columnDefinition = "TEXT", nullable = false)
     private String contents;
+
+    public void updateContents(String contents) {
+        this.contents = contents;
+    }
 }

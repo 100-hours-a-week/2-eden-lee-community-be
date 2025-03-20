@@ -10,7 +10,5 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class CommentUpdateRequestDto {
-    private Long userId;
-    private Long postId;
     private String contents;
 }

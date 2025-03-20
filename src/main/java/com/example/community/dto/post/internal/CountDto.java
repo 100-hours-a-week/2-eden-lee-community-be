@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CountDto {
-    private int likes;
-    private int comments;
-    private int views;
+    private Integer likes;
+    private Integer comments;
+    private Integer views;
 }

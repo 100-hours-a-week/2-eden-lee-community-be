@@ -33,25 +33,22 @@ public class UserService {
                 .build();
         userRepository.save(user);
 
-        UserCreateResponseDto response = UserConverter.toUserCreateResponseDto(user);
-        return response;
+        return UserConverter.toUserCreateResponseDto(user);
     }
 
     @Transactional(readOnly = true)
     public UserReadResponseDto readUser(Long userId) {
-        User user = userRepository.findById(userId)
+        User user = userRepository.findActiveUserById(userId)
                 .orElseThrow(() -> new TempHandler(ErrorStatus.USER_NOT_FOUND));
 
-        UserReadResponseDto response = UserConverter.toUserReadResponseDto(user);
-
-        return response;
+        return UserConverter.toUserReadResponseDto(user);
     }
 
     @Transactional
     public UserUpdateResponseDto updateUser(Long userId,
                                             String nickname,
                                             String profileImageUrl) {
-        User user = userRepository.findById(userId)
+        User user = userRepository.findActiveUserById(userId)
                 .orElseThrow(() -> new TempHandler(ErrorStatus.USER_NOT_FOUND));
         user.updateProfile(nickname, profileImageUrl);
 
@@ -60,14 +57,13 @@ public class UserService {
 
     @Transactional
     public PasswordUpdateResponseDto updatePassword(Long userId, String newPassword) {
-        User user = userRepository.findById(userId)
+        User user = userRepository.findActiveUserById(userId)
                 .orElseThrow(() -> new TempHandler(ErrorStatus.USER_NOT_FOUND));
 
         String oldPassword = user.getPassword();
         if (oldPassword.equals(newPassword)) {
             throw new TempHandler(ErrorStatus.SAME_PASSWORD);
         }
-
         user.updatePassword(newPassword);
 
         return UserConverter.toPasswordUpdateResponseDto(user);
@@ -75,7 +71,7 @@ public class UserService {
 
     @Transactional
     public Void deleteUser(Long userId) {
-        User user = userRepository.findById(userId)
+        User user = userRepository.findActiveUserById(userId)
                 .orElseThrow(() -> new TempHandler(ErrorStatus.USER_NOT_FOUND));
         user.delete();
 

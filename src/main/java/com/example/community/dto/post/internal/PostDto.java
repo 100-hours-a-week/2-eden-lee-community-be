@@ -16,7 +16,7 @@ public class PostDto {
     private ContentDto contents;
     private AuthorDto author;
     private CountDto counts;
-    private String likeYn;
+    private String likeStatus;
     private List<CommentDto> comments;
     private LocalDateTime createdAt;
 }

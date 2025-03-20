@@ -19,7 +19,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public LoginResponseDto login(String email, String password) {
         User user = userRepository.findByEmailAndPassword(email, password)
                 .orElseThrow(() -> new TempHandler(ErrorStatus.USER_NOT_FOUND));

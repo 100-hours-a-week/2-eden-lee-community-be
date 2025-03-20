@@ -14,38 +14,39 @@ public class PostController {
 
     @GetMapping("")
     public ApiResponse<PostListReadResponseDto> getPostList() {
-        PostListReadResponseDto data = null;
+        PostListReadResponseDto data = postService.getAllPosts();
         return ApiResponse.onSuccess(data);
     }
 
     @GetMapping("/{post_id}")
-    public ApiResponse<PostReadResponseDto> getPost(@PathVariable Integer post_id) {
-        PostReadResponseDto data = null;
+    public ApiResponse<PostReadResponseDto> getPost(@PathVariable Long postId) {
+        PostReadResponseDto data = postService.getPost(postId);
         return ApiResponse.onSuccess(data);
     }
 
     @PostMapping("")
-    public ApiResponse<PostCreateResponseDto> createPost(@RequestBody PostCreateRequestDto postCreateRequest) {
-        PostCreateResponseDto data = null;
+    public ApiResponse<PostCreateResponseDto> createPost(@RequestBody PostCreateRequestDto request) {
+        PostCreateResponseDto data = postService.createPost(request);
         return ApiResponse.onSuccess(data);
     }
 
     @PatchMapping("/{post_id}")
-    public ApiResponse<PostUpdateResponseDto> updatePost(@PathVariable Integer post_id,
-                                                         @RequestBody PostUpdateRequestDto updateRequest) {
-        PostUpdateResponseDto data = null;
+    public ApiResponse<PostUpdateResponseDto> updatePost(@PathVariable Long postId,
+                                                         @RequestBody PostUpdateRequestDto request) {
+        PostUpdateResponseDto data = postService.updatePost(postId, request);
         return ApiResponse.onSuccess(data);
     }
 
     @DeleteMapping("/{post_id}")
-    public ApiResponse<Void> deletePost(@PathVariable Integer post_id) {
+    public ApiResponse<Void> deletePost(@PathVariable Long post_id) {
+        postService.deletePost(post_id);
         return ApiResponse.onSuccess(null);
     }
 
     @PostMapping("/{post_id}/likes")
-    public ApiResponse<LikesToggleResponseDto> togglePostLikes(@PathVariable Integer post_id,
-                                                               @RequestBody LikesToggleRequestDto likesToggleRequest) {
-        LikesToggleResponseDto data = null;
+    public ApiResponse<LikesToggleResponseDto> togglePostLikes(@PathVariable Long postId,
+                                                               @RequestBody LikesToggleRequestDto request) {
+        LikesToggleResponseDto data = postService.togglePostLikes(postId, request.getUserId());
         return ApiResponse.onSuccess(data);
     }
 }

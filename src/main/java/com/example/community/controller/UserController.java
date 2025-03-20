@@ -14,18 +14,19 @@ public class UserController {
 
     @PostMapping("")
     public ApiResponse<UserCreateResponseDto> createUser(@RequestBody UserCreateRequestDto request) {
-        System.out.println("controller:"+request.getProfileImageUrl());
         UserCreateResponseDto data = userService.createUser(
                 request.getEmail(),
                 request.getPassword(),
                 request.getNickname(),
                 request.getProfileImageUrl());
+
         return ApiResponse.onSuccess(data);
     }
 
     @GetMapping("/{user_id}")
     public ApiResponse<UserReadResponseDto> getUser(@PathVariable("user_id") Long userId) {
         UserReadResponseDto data = userService.readUser(userId);
+
         return ApiResponse.onSuccess(data);
     }
 
@@ -36,6 +37,7 @@ public class UserController {
                 userId,
                 request.getNickname(),
                 request.getProfileImage());
+
         return ApiResponse.onSuccess(data);
     }
 
@@ -43,26 +45,28 @@ public class UserController {
     public ApiResponse<PasswordUpdateResponseDto> updatePassword(@PathVariable("user_id") Long userId,
                                                                  @RequestBody PasswordUpdateRequestDto request) {
         PasswordUpdateResponseDto data = userService.updatePassword(userId, request.getPassword());
+
         return ApiResponse.onSuccess(data);
     }
 
     @DeleteMapping("/{user_id}")
     public ApiResponse<Void> deleteUser(@PathVariable("user_id") Long userId) {
         Void data = userService.deleteUser(userId);
+
         return ApiResponse.onSuccess(data);
     }
 
     @GetMapping("/email")
     public ApiResponse<DuplicationCheckResponseDto> isEmailTaken(@RequestParam(required = false) String email) {
-
         DuplicationCheckResponseDto data = userService.isEmailTaken(email);
+
         return ApiResponse.onSuccess(data);
     }
 
     @GetMapping("/nickname")
     public ApiResponse<DuplicationCheckResponseDto> isNicknameTaken(@RequestParam(required = false) String nickname) {
-
         DuplicationCheckResponseDto data = userService.isNicknameTaken(nickname);
+
         return ApiResponse.onSuccess(data);
     }
 }
