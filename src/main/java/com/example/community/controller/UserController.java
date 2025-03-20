@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
+    @PostMapping("")
+    public ApiResponse<UserCreateResponseDto> createUser(@RequestBody UserCreateRequestDto userCreateRequestDto) {
+        UserCreateResponseDto data = null;
+        return ApiResponse.onSuccess(data);
+    }
+
     @GetMapping("/{user_id}")
     public ApiResponse<UserReadResponseDto> getUser(@PathVariable("user_id") Integer user_id) {
         UserReadResponseDto data = null;
@@ -37,16 +43,15 @@ public class UserController {
         return ApiResponse.onSuccess(null);
     }
 
-    @GetMapping("/exists")
-    public ApiResponse<DuplicationCheckResponseDto> isExist(@RequestParam(required = false) String email,
-                                                            @RequestParam(required = false) String nickname) {
-        if (email != null) {
+    @GetMapping("/email")
+    public ApiResponse<DuplicationCheckResponseDto> isEmailTaken(@RequestParam(required = false) String email) {
 
-        } else if (nickname != null) {
+        DuplicationCheckResponseDto data = null;
+        return ApiResponse.onSuccess(data);
+    }
 
-        } else {
-
-        }
+    @GetMapping("/nickname")
+    public ApiResponse<DuplicationCheckResponseDto> isNicknameTaken(@RequestParam(required = false) String nickname) {
 
         DuplicationCheckResponseDto data = null;
         return ApiResponse.onSuccess(data);
