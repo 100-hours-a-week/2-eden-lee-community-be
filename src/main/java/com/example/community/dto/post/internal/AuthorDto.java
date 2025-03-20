@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AuthorDto {
-    private Integer userId;
+    private Long userId;
     private String name;
     private String profileImage;
 }

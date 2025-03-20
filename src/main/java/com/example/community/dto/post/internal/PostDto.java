@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 public class PostDto {
-    private Integer postId;
+    private Long postId;
     private String title;
     private ContentDto contents;
     private AuthorDto author;

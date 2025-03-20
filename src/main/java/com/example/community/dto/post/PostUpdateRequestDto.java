@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class PostUpdateRequestDto {
-    private Integer userId;
+    private Long userId;
     private String title;
     private ContentDto contents;
 }

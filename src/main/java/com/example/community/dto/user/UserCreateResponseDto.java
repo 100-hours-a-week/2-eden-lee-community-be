@@ -10,5 +10,5 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class UserCreateResponseDto {
-    private Integer userId;
+    private Long userId;
 }

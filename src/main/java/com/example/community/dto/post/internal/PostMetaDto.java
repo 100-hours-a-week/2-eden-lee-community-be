@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class PostMetaDto {
-    private Integer postId;
+    private Long postId;
     private String title;
     private AuthorDto author;
     private CountDto counts;
