@@ -87,18 +87,25 @@ public class PostService {
     public LikesToggleResponseDto togglePostLikes(Long postId, Long userId) {
 
         PostLike postLike = postLikeRepository.findByPostIdAndUserId(postId, userId).orElse(null);
-        PostLikeStatus status = postLike.getStatus();
 
-        if (status == PostLikeStatus.INACTIVE) {
-            postLike.activate();
-        } else if (status == PostLikeStatus.ACTIVE) {
-            postLike.deactivate();
-        } else {
+        if (postLike == null) {
             // 아직 좋아요를 누른 적이 없어서 null이 반환됨
+            Post post = postRepository.findActivePostById(postId)
+                    .orElseThrow(() -> new TempHandler(ErrorStatus.POST_NOT_FOUND));
+
+            User user = userRepository.findActiveUserById(userId)
+                    .orElseThrow(() -> new TempHandler(ErrorStatus.USER_NOT_FOUND));
+
             postLike = PostLike.builder()
+                    .post(post)
+                    .user(user)
                     .status(PostLikeStatus.ACTIVE)
                     .build();
             postLikeRepository.save(postLike);
+        } else if (postLike.getStatus() == PostLikeStatus.INACTIVE) {
+            postLike.activate();
+        } else if (postLike.getStatus() == PostLikeStatus.ACTIVE) {
+            postLike.deactivate();
         }
 
         Post post = postRepository.findActivePostById(postId)
@@ -106,5 +113,14 @@ public class PostService {
         Integer likeCount = post.getLikeCount();
 
         return PostConverter.toLikesToggleResponseDto(postLike, likeCount);
+    }
+
+    @Transactional
+    public Void increaseViews(Long postId) {
+        Post post = postRepository.findActivePostById(postId)
+                .orElseThrow(() -> new TempHandler(ErrorStatus.POST_NOT_FOUND));
+        post.increaseViews();
+        
+        return null;
     }
 }

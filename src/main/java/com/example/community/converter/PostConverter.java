@@ -48,7 +48,10 @@ public class PostConverter {
     }
 
     public static PostReadResponseDto toPostReadResponseDto(Post post) {
-        ContentDto contentDto = ContentDto.builder().build();
+        ContentDto contentDto = ContentDto.builder()
+                .text(post.getText())
+                .imageUrl(post.getImageUrl())
+                .build();
 
         User user = post.getUser();
         AuthorDto authorDto = AuthorDto.builder()

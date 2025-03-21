@@ -19,7 +19,7 @@ public class PostController {
     }
 
     @GetMapping("/{post_id}")
-    public ApiResponse<PostReadResponseDto> getPost(@PathVariable Long postId) {
+    public ApiResponse<PostReadResponseDto> getPost(@PathVariable("post_id") Long postId) {
         PostReadResponseDto data = postService.getPost(postId);
         return ApiResponse.onSuccess(data);
     }
@@ -31,22 +31,29 @@ public class PostController {
     }
 
     @PatchMapping("/{post_id}")
-    public ApiResponse<PostUpdateResponseDto> updatePost(@PathVariable Long postId,
+    public ApiResponse<PostUpdateResponseDto> updatePost(@PathVariable("post_id") Long postId,
                                                          @RequestBody PostUpdateRequestDto request) {
         PostUpdateResponseDto data = postService.updatePost(postId, request);
         return ApiResponse.onSuccess(data);
     }
 
     @DeleteMapping("/{post_id}")
-    public ApiResponse<Void> deletePost(@PathVariable Long post_id) {
-        postService.deletePost(post_id);
+    public ApiResponse<Void> deletePost(@PathVariable("post_id") Long postId) {
+        postService.deletePost(postId);
         return ApiResponse.onSuccess(null);
     }
 
     @PostMapping("/{post_id}/likes")
-    public ApiResponse<LikesToggleResponseDto> togglePostLikes(@PathVariable Long postId,
+    public ApiResponse<LikesToggleResponseDto> togglePostLikes(@PathVariable("post_id") Long postId,
                                                                @RequestBody LikesToggleRequestDto request) {
         LikesToggleResponseDto data = postService.togglePostLikes(postId, request.getUserId());
         return ApiResponse.onSuccess(data);
+    }
+
+    @PatchMapping("/{post_id}/views")
+    public ApiResponse<Void> increaseViews(@PathVariable("post_id") Long postId) {
+        postService.increaseViews(postId);
+
+        return ApiResponse.onSuccess(null);
     }
 }

@@ -22,7 +22,7 @@ public class CommentController {
     }
 
     @PatchMapping("/{comment_id}")
-    public ApiResponse<CommentUpdateResponseDto> updateComment(@PathVariable Long commentId,
+    public ApiResponse<CommentUpdateResponseDto> updateComment(@PathVariable("comment_id") Long commentId,
                                                                @RequestBody CommentUpdateRequestDto request) {
         CommentUpdateResponseDto data = commentService.updateComment(
                 commentId,
@@ -31,7 +31,7 @@ public class CommentController {
     }
 
     @DeleteMapping("/{comment_id}")
-    public ApiResponse<Void> deleteComment(@PathVariable Long commentId) {
+    public ApiResponse<Void> deleteComment(@PathVariable("comment_id") Long commentId) {
         commentService.deleteComment(commentId);
 
         return ApiResponse.onSuccess(null);

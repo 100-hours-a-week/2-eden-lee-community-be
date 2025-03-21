@@ -68,4 +68,8 @@ public class Post extends BaseEntity {
         this.text = text;
         this.imageUrl = imageUrl;
     }
+
+    public void increaseViews() {
+        this.views++;
+    }
 }
