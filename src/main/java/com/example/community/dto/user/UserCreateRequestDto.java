@@ -1,4 +1,4 @@
-package com.example.community.dto.auth;
+package com.example.community.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class SignupRequestDto {
+public class UserCreateRequestDto {
     private String email;
     private String password;
     private String nickname;
-    private String profileImage;
+    private String profileImageUrl;
 }

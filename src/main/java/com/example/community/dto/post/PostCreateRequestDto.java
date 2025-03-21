@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class PostCreateRequestDto {
-    private Integer userId;
+    private Long userId;
     private String title;
-    private ContentDto content;
+    private ContentDto contents;
 }

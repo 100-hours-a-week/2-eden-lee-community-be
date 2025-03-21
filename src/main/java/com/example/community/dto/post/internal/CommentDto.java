@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class CommentDto {
-    private Integer commentId;
-    private String content;
+    private Long commentId;
+    private String contents;
     private AuthorDto author;
     private LocalDateTime createdAt;
 }

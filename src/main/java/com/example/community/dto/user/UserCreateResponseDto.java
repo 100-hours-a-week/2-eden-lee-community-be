@@ -1,4 +1,4 @@
-package com.example.community.dto.auth;
+package com.example.community.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class SignupResponseDto {
-    private Integer userId;
+public class UserCreateResponseDto {
+    private Long userId;
 }

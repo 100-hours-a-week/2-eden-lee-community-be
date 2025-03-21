@@ -13,7 +13,7 @@ import java.util.Date;
 public class JwtTokenProvider {
     @Value("${jwt.secret}")
     private String SECRET_KEY;
-    private final long accessTokenValidity = 60 * 60 * 1000;  // 60분
+    private final long accessTokenValidity = 120 * 60 * 1000;  // 120분
     private final long refreshTokenValidity = 7 * 24 * 60 * 60 * 1000;  // 7일
 
     public String createAccessToken(String email) {

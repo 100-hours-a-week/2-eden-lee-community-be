@@ -11,12 +11,12 @@ import java.util.List;
 @Getter
 @Setter
 public class PostDto {
-    private Integer postId;
+    private Long postId;
     private String title;
-    private ContentDto content;
+    private ContentDto contents;
     private AuthorDto author;
     private CountDto counts;
-    private String likeYn;
+    private String likeStatus;
     private List<CommentDto> comments;
     private LocalDateTime createdAt;
 }

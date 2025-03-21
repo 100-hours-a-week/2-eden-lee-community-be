@@ -12,5 +12,5 @@ import lombok.Setter;
 public class UserReadResponseDto {
     private String email;
     private String nickname;
-    private String profileImage;
+    private String profileImageUrl;
 }

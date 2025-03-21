@@ -10,5 +10,5 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class PostCreateResponseDto {
-    private Integer postId;
+    private Long postId;
 }

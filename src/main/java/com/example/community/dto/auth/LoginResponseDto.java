@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class LoginResponseDto {
-    private Integer userId;
+    private Long userId;
     private String accessToken;
     private String refreshToken;
 }

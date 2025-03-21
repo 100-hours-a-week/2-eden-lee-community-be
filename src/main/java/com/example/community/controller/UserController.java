@@ -12,43 +12,61 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
+    @PostMapping("")
+    public ApiResponse<UserCreateResponseDto> createUser(@RequestBody UserCreateRequestDto request) {
+        UserCreateResponseDto data = userService.createUser(
+                request.getEmail(),
+                request.getPassword(),
+                request.getNickname(),
+                request.getProfileImageUrl());
+
+        return ApiResponse.onSuccess(data);
+    }
+
     @GetMapping("/{user_id}")
-    public ApiResponse<UserReadResponseDto> getUser(@PathVariable("user_id") Integer user_id) {
-        UserReadResponseDto data = null;
+    public ApiResponse<UserReadResponseDto> getUser(@PathVariable("user_id") Long userId) {
+        UserReadResponseDto data = userService.readUser(userId);
+
         return ApiResponse.onSuccess(data);
     }
 
     @PatchMapping("/{user_id}/profile")
-    public ApiResponse<UserUpdateResponseDto> updateProfile(@PathVariable("user_id") Integer user_id,
-                                                            @RequestBody UserUpdateRequestDto userUpdateRequest) {
-        UserUpdateResponseDto data = null;
+    public ApiResponse<UserUpdateResponseDto> updateProfile(@PathVariable("user_id") Long userId,
+                                                            @RequestBody UserUpdateRequestDto request) {
+        UserUpdateResponseDto data = userService.updateUser(
+                userId,
+                request.getNickname(),
+                request.getProfileImage());
+
         return ApiResponse.onSuccess(data);
     }
 
     @PatchMapping("/{user_id}/password")
-    public ApiResponse<PasswordUpdateResponseDto> updatePassword(@PathVariable("user_id") Integer user_id,
-                                                                 @RequestBody PasswordUpdateRequestDto passwordUpdateRequest) {
-        PasswordUpdateResponseDto data = null;
+    public ApiResponse<PasswordUpdateResponseDto> updatePassword(@PathVariable("user_id") Long userId,
+                                                                 @RequestBody PasswordUpdateRequestDto request) {
+        PasswordUpdateResponseDto data = userService.updatePassword(userId, request.getPassword());
+
         return ApiResponse.onSuccess(data);
     }
 
     @DeleteMapping("/{user_id}")
-    public ApiResponse<Void> deleteUser(@PathVariable("user_id") Integer user_id) {
-        return ApiResponse.onSuccess(null);
+    public ApiResponse<Void> deleteUser(@PathVariable("user_id") Long userId) {
+        Void data = userService.deleteUser(userId);
+
+        return ApiResponse.onSuccess(data);
     }
 
-    @GetMapping("/exists")
-    public ApiResponse<DuplicationCheckResponseDto> isExist(@RequestParam(required = false) String email,
-                                                            @RequestParam(required = false) String nickname) {
-        if (email != null) {
+    @GetMapping("/email")
+    public ApiResponse<DuplicationCheckResponseDto> isEmailTaken(@RequestParam(required = false) String email) {
+        DuplicationCheckResponseDto data = userService.isEmailTaken(email);
 
-        } else if (nickname != null) {
+        return ApiResponse.onSuccess(data);
+    }
 
-        } else {
+    @GetMapping("/nickname")
+    public ApiResponse<DuplicationCheckResponseDto> isNicknameTaken(@RequestParam(required = false) String nickname) {
+        DuplicationCheckResponseDto data = userService.isNicknameTaken(nickname);
 
-        }
-
-        DuplicationCheckResponseDto data = null;
         return ApiResponse.onSuccess(data);
     }
 }

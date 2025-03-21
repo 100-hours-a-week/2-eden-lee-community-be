@@ -11,5 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LikesToggleResponseDto {
     private Integer likesCount;
-    private String likesYn;
+    private String likesStatus;
 }
