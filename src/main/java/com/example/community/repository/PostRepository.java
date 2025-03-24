@@ -18,6 +18,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT p FROM Post p WHERE p.id = :id AND p.deletedAt IS NULL")
     Optional<Post> findActivePostById(@Param("id") Long id);
 
-    @Query("SELECT p FROM Post p WHERE p.deletedAt IS NULL")
+    @Query("SELECT p FROM Post p WHERE p.deletedAt IS NULL ORDER BY p.createdAt DESC")
     List<Post> findAllActivePosts();
 }

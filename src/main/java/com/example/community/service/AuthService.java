@@ -28,8 +28,9 @@ public class AuthService {
             new TempHandler(ErrorStatus.USER_NOT_FOUND);
         }
 
-        String accessToken = jwtTokenProvider.createAccessToken(email);
-        String refreshToken = jwtTokenProvider.createRefreshToken(email);
+        String userId = user.getId().toString();
+        String accessToken = jwtTokenProvider.createAccessToken(userId);
+        String refreshToken = jwtTokenProvider.createRefreshToken(userId);
 
         return AuthConverter.toLoginResponseDto(user, accessToken, refreshToken);
     }

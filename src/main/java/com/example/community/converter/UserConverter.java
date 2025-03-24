@@ -37,7 +37,7 @@ public class UserConverter {
 
     public static DuplicationCheckResponseDto toDuplicationCheckResponseDto(boolean isDuplicate) {
         return DuplicationCheckResponseDto.builder()
-                .isDuplicate(isDuplicate)
+                .duplicate(isDuplicate)
                 .build();
     }
 }

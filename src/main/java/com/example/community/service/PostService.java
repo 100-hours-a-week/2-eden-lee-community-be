@@ -36,11 +36,13 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public PostReadResponseDto getPost(Long postId) {
+    public PostReadResponseDto getPost(Long postId, User user) {
         Post post = postRepository.findActivePostById(postId)
                 .orElseThrow(() -> new TempHandler(ErrorStatus.POST_NOT_FOUND));
 
-        return PostConverter.toPostReadResponseDto(post);
+        String likesStatus = post.getUserLikeStatus(user.getId()).toString();
+
+        return PostConverter.toPostReadResponseDto(post, likesStatus);
     }
 
     @Transactional

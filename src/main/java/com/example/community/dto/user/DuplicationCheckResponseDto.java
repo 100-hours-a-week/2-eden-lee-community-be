@@ -10,5 +10,5 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class DuplicationCheckResponseDto {
-    private boolean isDuplicate;
+    private boolean duplicate;
 }

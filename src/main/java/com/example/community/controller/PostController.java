@@ -1,9 +1,13 @@
 package com.example.community.controller;
 
 import com.example.community.apiPayload.ApiResponse;
+import com.example.community.domain.User;
 import com.example.community.dto.post.*;
+import com.example.community.security.CustomUserDetails;
 import com.example.community.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,8 +23,9 @@ public class PostController {
     }
 
     @GetMapping("/{post_id}")
-    public ApiResponse<PostReadResponseDto> getPost(@PathVariable("post_id") Long postId) {
-        PostReadResponseDto data = postService.getPost(postId);
+    public ApiResponse<PostReadResponseDto> getPost(@AuthenticationPrincipal CustomUserDetails userDetails,
+                                                    @PathVariable("post_id") Long postId) {
+        PostReadResponseDto data = postService.getPost(postId, userDetails.getUser());
         return ApiResponse.onSuccess(data);
     }
 
@@ -30,7 +35,7 @@ public class PostController {
         return ApiResponse.onSuccess(data);
     }
 
-    @PatchMapping("/{post_id}")
+    @PutMapping("/{post_id}")
     public ApiResponse<PostUpdateResponseDto> updatePost(@PathVariable("post_id") Long postId,
                                                          @RequestBody PostUpdateRequestDto request) {
         PostUpdateResponseDto data = postService.updatePost(postId, request);

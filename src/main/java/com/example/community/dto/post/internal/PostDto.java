@@ -1,5 +1,6 @@
 package com.example.community.dto.post.internal;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,9 @@ public class PostDto {
     private ContentDto contents;
     private AuthorDto author;
     private CountDto counts;
-    private String likeStatus;
+    private String likesStatus;
     private List<CommentDto> comments;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
 }

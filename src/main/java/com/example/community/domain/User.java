@@ -31,6 +31,11 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Post> postList  = new ArrayList<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Comment> commentList  = new ArrayList<>();
+
+
     public void updateProfile(String nickname, String profileImageUrl) {
         this.nickname = nickname;
         this.profileImageUrl = profileImageUrl;
@@ -38,5 +43,18 @@ public class User extends BaseEntity {
 
     public void updatePassword(String password) {
         this.password = password;
+    }
+
+    public void withdraw() {
+        // 유저가 작성한 게시글과 댓글 모두 삭제
+        for (Post post : postList) {
+            post.delete();
+        }
+
+        for (Comment comment : commentList) {
+            comment.delete();
+        }
+
+        this.delete();
     }
 }
