@@ -4,6 +4,7 @@ import com.example.community.apiPayload.ApiResponse;
 import com.example.community.dto.user.*;
 import com.example.community.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,7 +31,7 @@ public class UserController {
         return ApiResponse.onSuccess(data);
     }
 
-    @PatchMapping("/{user_id}/profile")
+    @PutMapping("/{user_id}/profile")
     public ApiResponse<UserUpdateResponseDto> updateProfile(@PathVariable("user_id") Long userId,
                                                             @RequestBody UserUpdateRequestDto request) {
         UserUpdateResponseDto data = userService.updateUser(
@@ -41,7 +42,7 @@ public class UserController {
         return ApiResponse.onSuccess(data);
     }
 
-    @PatchMapping("/{user_id}/password")
+    @PutMapping("/{user_id}/password")
     public ApiResponse<PasswordUpdateResponseDto> updatePassword(@PathVariable("user_id") Long userId,
                                                                  @RequestBody PasswordUpdateRequestDto request) {
         PasswordUpdateResponseDto data = userService.updatePassword(userId, request.getPassword());

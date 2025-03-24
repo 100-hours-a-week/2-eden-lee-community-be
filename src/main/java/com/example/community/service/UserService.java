@@ -73,7 +73,7 @@ public class UserService {
     public Void deleteUser(Long userId) {
         User user = userRepository.findActiveUserById(userId)
                 .orElseThrow(() -> new TempHandler(ErrorStatus.USER_NOT_FOUND));
-        user.delete();
+        user.withdraw();
 
         return null;
     }

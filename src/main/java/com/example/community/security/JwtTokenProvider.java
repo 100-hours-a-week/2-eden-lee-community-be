@@ -16,17 +16,17 @@ public class JwtTokenProvider {
     private final long accessTokenValidity = 120 * 60 * 1000;  // 120분
     private final long refreshTokenValidity = 7 * 24 * 60 * 60 * 1000;  // 7일
 
-    public String createAccessToken(String email) {
-        return createToken(email, accessTokenValidity);
+    public String createAccessToken(String userId) {
+        return createToken(userId, accessTokenValidity);
     }
 
-    public String createRefreshToken(String email) {
-        return createToken(email, refreshTokenValidity);
+    public String createRefreshToken(String userId) {
+        return createToken(userId, refreshTokenValidity);
     }
 
-    private String createToken(String email, long validityInMillis) {
+    private String createToken(String userId, long validityInMillis) {
         return JWT.create()
-                .withSubject(email)
+                .withSubject(userId)
                 .withExpiresAt(new Date(System.currentTimeMillis() + validityInMillis))
                 .sign(Algorithm.HMAC256(SECRET_KEY));
     }

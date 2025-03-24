@@ -6,6 +6,7 @@ import com.example.community.dto.user.UserCreateRequestDto;
 import com.example.community.dto.user.UserCreateResponseDto;
 import com.example.community.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

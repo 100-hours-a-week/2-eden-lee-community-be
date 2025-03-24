@@ -47,17 +47,17 @@ public class PostConverter {
                 .totalCount(postMetaDtoList.size()).build();
     }
 
-    public static PostReadResponseDto toPostReadResponseDto(Post post) {
+    public static PostReadResponseDto toPostReadResponseDto(Post post, String likesStatus) {
         ContentDto contentDto = ContentDto.builder()
                 .text(post.getText())
                 .imageUrl(post.getImageUrl())
                 .build();
 
-        User user = post.getUser();
+        User postAuthor = post.getUser();
         AuthorDto authorDto = AuthorDto.builder()
-                .userId(user.getId())
-                .nickname(user.getNickname())
-                .profileImageUrl(user.getProfileImageUrl())
+                .userId(postAuthor.getId())
+                .nickname(postAuthor.getNickname())
+                .profileImageUrl(postAuthor.getProfileImageUrl())
                 .build();
 
         CountDto countDto = CountDto.builder()
@@ -69,11 +69,15 @@ public class PostConverter {
         List<Comment> commentList = post.getCommentList();
         List<CommentDto> commentDtoList = new ArrayList<>();
         for (Comment comment : commentList) {
-            User commentUser = comment.getUser();
+            if (comment.getDeletedAt() != null) {
+                continue;
+            }
+
+            User commentAuthor = comment.getUser();
             AuthorDto commentAuthorDto = AuthorDto.builder()
-                    .userId(commentUser.getId())
-                    .nickname(commentUser.getNickname())
-                    .profileImageUrl(commentUser.getProfileImageUrl())
+                    .userId(commentAuthor.getId())
+                    .nickname(commentAuthor.getNickname())
+                    .profileImageUrl(commentAuthor.getProfileImageUrl())
                     .build();
 
             CommentDto commentDto = CommentDto.builder()
@@ -85,8 +89,6 @@ public class PostConverter {
             commentDtoList.add(commentDto);
         }
 
-        String likeStatus = post.getUserLikeStatus(user.getId()).toString();
-
         PostDto postDto = PostDto.builder()
                 .postId(post.getId())
                 .title(post.getTitle())
@@ -94,7 +96,7 @@ public class PostConverter {
                 .author(authorDto)
                 .counts(countDto)
                 .comments(commentDtoList)
-                .likeStatus(likeStatus)
+                .likesStatus(likesStatus)
                 .createdAt(post.getCreatedAt())
                 .build();
 

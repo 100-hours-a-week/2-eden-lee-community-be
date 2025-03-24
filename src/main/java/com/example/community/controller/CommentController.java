@@ -4,6 +4,7 @@ import com.example.community.apiPayload.ApiResponse;
 import com.example.community.dto.comment.*;
 import com.example.community.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,7 +22,7 @@ public class CommentController {
         return ApiResponse.onSuccess(data);
     }
 
-    @PatchMapping("/{comment_id}")
+    @PutMapping("/{comment_id}")
     public ApiResponse<CommentUpdateResponseDto> updateComment(@PathVariable("comment_id") Long commentId,
                                                                @RequestBody CommentUpdateRequestDto request) {
         CommentUpdateResponseDto data = commentService.updateComment(
