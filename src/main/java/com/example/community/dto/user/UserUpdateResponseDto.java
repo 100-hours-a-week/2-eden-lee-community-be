@@ -11,4 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserUpdateResponseDto {
     private Long userId;
+    private String profileImageUrl;
 }

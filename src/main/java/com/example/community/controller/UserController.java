@@ -6,6 +6,7 @@ import com.example.community.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/users")
@@ -14,12 +15,13 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("")
-    public ApiResponse<UserCreateResponseDto> createUser(@RequestBody UserCreateRequestDto request) {
-        UserCreateResponseDto data = userService.createUser(
-                request.getEmail(),
+    public ApiResponse<UserCreateResponseDto> createUser(@ModelAttribute UserCreateRequestDto request) {
+
+        System.out.println(request.getProfileImage());
+        UserCreateResponseDto data = userService.createUser(request.getEmail(),
                 request.getPassword(),
                 request.getNickname(),
-                request.getProfileImageUrl());
+                request.getProfileImage());
 
         return ApiResponse.onSuccess(data);
     }
@@ -33,7 +35,7 @@ public class UserController {
 
     @PutMapping("/{user_id}/profile")
     public ApiResponse<UserUpdateResponseDto> updateProfile(@PathVariable("user_id") Long userId,
-                                                            @RequestBody UserUpdateRequestDto request) {
+                                                            @ModelAttribute UserUpdateRequestDto request) {
         UserUpdateResponseDto data = userService.updateUser(
                 userId,
                 request.getNickname(),

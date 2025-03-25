@@ -1,6 +1,5 @@
 package com.example.community.domain;
 
-import com.example.community.apiPayload.exception.handler.TempHandler;
 import com.example.community.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;

@@ -26,6 +26,7 @@ public class UserConverter {
     public static UserUpdateResponseDto toUserUpdateResponseDto(User user) {
         return UserUpdateResponseDto.builder()
                 .userId(user.getId())
+                .profileImageUrl(user.getProfileImageUrl())
                 .build();
     }
 

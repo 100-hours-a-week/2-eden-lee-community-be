@@ -1,7 +1,7 @@
 package com.example.community.service;
 
 import com.example.community.apiPayload.code.status.ErrorStatus;
-import com.example.community.apiPayload.exception.handler.TempHandler;
+import com.example.community.apiPayload.exception.GeneralException;
 import com.example.community.converter.AuthConverter;
 import com.example.community.domain.User;
 import com.example.community.dto.auth.LoginResponseDto;
@@ -22,10 +22,10 @@ public class AuthService {
     @Transactional(readOnly = true)
     public LoginResponseDto login(String email, String password) {
         User user = userRepository.findByEmailAndPassword(email, password)
-                .orElseThrow(() -> new TempHandler(ErrorStatus.USER_NOT_FOUND));
+                .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
 
         if (user.getDeletedAt() != null) {
-            new TempHandler(ErrorStatus.USER_NOT_FOUND);
+            throw new GeneralException(ErrorStatus.USER_NOT_FOUND);
         }
 
         String userId = user.getId().toString();
