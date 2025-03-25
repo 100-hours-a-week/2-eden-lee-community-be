@@ -1,7 +1,7 @@
 package com.example.community.service;
 
 import com.example.community.apiPayload.code.status.ErrorStatus;
-import com.example.community.apiPayload.exception.handler.TempHandler;
+import com.example.community.apiPayload.exception.GeneralException;
 import com.example.community.converter.PostConverter;
 import com.example.community.domain.Post;
 import com.example.community.domain.PostLike;
@@ -12,12 +12,13 @@ import com.example.community.dto.post.internal.ContentDto;
 import com.example.community.repository.PostLikeRepository;
 import com.example.community.repository.PostRepository;
 import com.example.community.repository.UserRepository;
+import com.example.community.util.ImageFileUploader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.servlet.View;
 
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -27,6 +28,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostLikeRepository postLikeRepository;
     private final UserRepository userRepository;
+    private final ImageFileUploader imageFileUploader;
 
     @Transactional(readOnly = true)
     public PostListReadResponseDto getAllPosts() {
@@ -38,7 +40,7 @@ public class PostService {
     @Transactional(readOnly = true)
     public PostReadResponseDto getPost(Long postId, User user) {
         Post post = postRepository.findActivePostById(postId)
-                .orElseThrow(() -> new TempHandler(ErrorStatus.POST_NOT_FOUND));
+                .orElseThrow(() -> new GeneralException(ErrorStatus.POST_NOT_FOUND));
 
         String likesStatus = post.getUserLikeStatus(user.getId()).toString();
 
@@ -48,14 +50,19 @@ public class PostService {
     @Transactional
     public PostCreateResponseDto createPost(PostCreateRequestDto postDto) {
         User user = userRepository.findActiveUserById(postDto.getUserId())
-                .orElseThrow(() -> new TempHandler(ErrorStatus.USER_NOT_FOUND));
+                .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
 
-        ContentDto contents = postDto.getContents();
+        String postImageUrl = null;
+        try {
+            postImageUrl = imageFileUploader.upload(postDto.getPostImage());
+        } catch (IOException e) {
+            throw new GeneralException(ErrorStatus.FILE_UPLOAD_FAIL);
+        }
 
         Post post = Post.builder()
                 .title(postDto.getTitle())
-                .text(contents.getText())
-                .imageUrl(contents.getImageUrl())
+                .text(postDto.getText())
+                .imageUrl(postImageUrl)
                 .user(user)
                 .views(0)
                 .build();
@@ -67,11 +74,17 @@ public class PostService {
     @Transactional
     public PostUpdateResponseDto updatePost(Long postId, PostUpdateRequestDto postDto) {
         Post post = postRepository.findActivePostById(postId)
-                .orElseThrow(() -> new TempHandler(ErrorStatus.POST_NOT_FOUND));
-        ContentDto contents = postDto.getContents();
+                .orElseThrow(() -> new GeneralException(ErrorStatus.POST_NOT_FOUND));
+
+        String postImageUrl = null;
+        try {
+            postImageUrl = imageFileUploader.upload(postDto.getPostImage());
+        } catch (IOException e) {
+            throw new GeneralException(ErrorStatus.FILE_UPLOAD_FAIL);
+        }
 
         post.updateTitle(postDto.getTitle());
-        post.updateContents(contents.getText(), contents.getImageUrl());
+        post.updateContents(postDto.getText(), postImageUrl);
 
         return PostConverter.toPostUpdateResponseDto(post);
     }
@@ -79,7 +92,7 @@ public class PostService {
     @Transactional
     public Void deletePost(Long postId) {
         Post post = postRepository.findActivePostById(postId)
-                .orElseThrow(() -> new TempHandler(ErrorStatus.POST_NOT_FOUND));
+                .orElseThrow(() -> new GeneralException(ErrorStatus.POST_NOT_FOUND));
         post.delete();
 
         return null;
@@ -93,10 +106,10 @@ public class PostService {
         if (postLike == null) {
             // 아직 좋아요를 누른 적이 없어서 null이 반환됨
             Post post = postRepository.findActivePostById(postId)
-                    .orElseThrow(() -> new TempHandler(ErrorStatus.POST_NOT_FOUND));
+                    .orElseThrow(() -> new GeneralException(ErrorStatus.POST_NOT_FOUND));
 
             User user = userRepository.findActiveUserById(userId)
-                    .orElseThrow(() -> new TempHandler(ErrorStatus.USER_NOT_FOUND));
+                    .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
 
             postLike = PostLike.builder()
                     .post(post)
@@ -111,7 +124,7 @@ public class PostService {
         }
 
         Post post = postRepository.findActivePostById(postId)
-                .orElseThrow(() -> new TempHandler(ErrorStatus.POST_NOT_FOUND));
+                .orElseThrow(() -> new GeneralException(ErrorStatus.POST_NOT_FOUND));
         Integer likeCount = post.getLikeCount();
 
         return PostConverter.toLikesToggleResponseDto(postLike, likeCount);
@@ -120,7 +133,7 @@ public class PostService {
     @Transactional
     public Void increaseViews(Long postId) {
         Post post = postRepository.findActivePostById(postId)
-                .orElseThrow(() -> new TempHandler(ErrorStatus.POST_NOT_FOUND));
+                .orElseThrow(() -> new GeneralException(ErrorStatus.POST_NOT_FOUND));
         post.increaseViews();
         
         return null;

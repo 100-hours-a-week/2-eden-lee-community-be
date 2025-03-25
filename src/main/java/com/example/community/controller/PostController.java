@@ -30,14 +30,14 @@ public class PostController {
     }
 
     @PostMapping("")
-    public ApiResponse<PostCreateResponseDto> createPost(@RequestBody PostCreateRequestDto request) {
+    public ApiResponse<PostCreateResponseDto> createPost(@ModelAttribute PostCreateRequestDto request) {
         PostCreateResponseDto data = postService.createPost(request);
         return ApiResponse.onSuccess(data);
     }
 
     @PutMapping("/{post_id}")
     public ApiResponse<PostUpdateResponseDto> updatePost(@PathVariable("post_id") Long postId,
-                                                         @RequestBody PostUpdateRequestDto request) {
+                                                         @ModelAttribute PostUpdateRequestDto request) {
         PostUpdateResponseDto data = postService.updatePost(postId, request);
         return ApiResponse.onSuccess(data);
     }

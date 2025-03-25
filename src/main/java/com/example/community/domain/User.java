@@ -1,6 +1,5 @@
 package com.example.community.domain;
 
-import com.example.community.apiPayload.exception.handler.TempHandler;
 import com.example.community.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,13 +15,13 @@ import java.util.List;
 @Table(name = "users")
 public class User extends BaseEntity {
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String nickname;
 
     private String profileImageUrl;

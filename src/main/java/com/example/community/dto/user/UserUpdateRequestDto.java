@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Builder
 @Getter
@@ -11,5 +12,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserUpdateRequestDto {
     private String nickname;
-    private String profileImage;
+    private MultipartFile profileImage;
 }
