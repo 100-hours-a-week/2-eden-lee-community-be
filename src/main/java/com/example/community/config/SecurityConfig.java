@@ -1,5 +1,6 @@
-package com.example.community.security;
+package com.example.community.config;
 
+import com.example.community.security.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

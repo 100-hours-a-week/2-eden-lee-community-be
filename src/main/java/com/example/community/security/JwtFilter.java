@@ -33,7 +33,6 @@ public class JwtFilter extends OncePerRequestFilter {
         // 이미지 요청 건너뛰기
         String uri = request.getRequestURI();
         if (uri.startsWith("/images/")) {
-            System.out.println("매핑 ~~~~~~~~~");
             filterChain.doFilter(request, response);
             return;
         }
