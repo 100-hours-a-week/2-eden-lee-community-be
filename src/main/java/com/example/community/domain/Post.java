@@ -66,7 +66,10 @@ public class Post extends BaseEntity {
 
     public void updateContents(String text, String imageUrl) {
         this.text = text;
-        this.imageUrl = imageUrl;
+
+        if (imageUrl != null) {
+            this.imageUrl = imageUrl;
+        }
     }
 
     public void increaseViews() {

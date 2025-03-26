@@ -68,7 +68,6 @@ public class UserService {
         } catch (IOException e) {
             throw new GeneralException(ErrorStatus.FILE_UPLOAD_FAIL);
         }
-
         user.updateProfile(nickname, profileImageUrl);
 
         return UserConverter.toUserUpdateResponseDto(user);

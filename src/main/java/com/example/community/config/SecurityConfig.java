@@ -1,5 +1,6 @@
-package com.example.community.security;
+package com.example.community.config;
 
+import com.example.community.security.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +28,8 @@ public class SecurityConfig {
             .cors(Customizer.withDefaults())
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/auth/login", "/users", "/users/email", "/users/nickname", "/images/**").permitAll()
+                    .requestMatchers("/images/**").permitAll()
+                    .requestMatchers("/auth/login", "/users", "/users/email", "/users/nickname").permitAll()
                     .anyRequest().authenticated()
             )
             .httpBasic(Customizer.withDefaults())
