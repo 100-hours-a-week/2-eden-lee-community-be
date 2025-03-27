@@ -35,6 +35,6 @@ public class ImageFileUploader {
         Path filePath = Paths.get(uploadDir, fileName);
         Files.write(filePath, file.getBytes());
 
-        return "/images/" + fileName;
+        return "/uploads/" + fileName;
     }
 }
