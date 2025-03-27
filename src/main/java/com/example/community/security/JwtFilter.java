@@ -37,6 +37,8 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
+        System.out.println("JwtFilter: filtering " + request.getRequestURI());
+
         String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);

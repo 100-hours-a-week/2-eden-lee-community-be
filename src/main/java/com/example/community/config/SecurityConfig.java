@@ -1,6 +1,7 @@
 package com.example.community.config;
 
 import com.example.community.security.JwtFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,13 +29,27 @@ public class SecurityConfig {
             .cors(Customizer.withDefaults())
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/images/**").permitAll()
+                    .requestMatchers("/uploads/**", "/error").permitAll()
                     .requestMatchers("/auth/login", "/users", "/users/email", "/users/nickname").permitAll()
                     .anyRequest().authenticated()
             )
             .httpBasic(Customizer.withDefaults())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+        http.exceptionHandling(e -> e
+                .authenticationEntryPoint((request, response, authException) -> {
+                    String uri = request.getRequestURI();
+                    System.out.println(uri);
+                    if (uri.startsWith("/uploads/")) {
+                        System.out.println("EntryPoint: 이미지 요청 404로 응답");
+                        response.sendError(HttpServletResponse.SC_NOT_FOUND, "이미지 없음");
+                    } else {
+                        System.out.println("EntryPoint: 그 외는 401 Unauthorized");
+                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+                    }
+                })
+        );
 
         return http.build();
     }
@@ -49,6 +64,7 @@ public class SecurityConfig {
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
+
         return source;
     }
 }

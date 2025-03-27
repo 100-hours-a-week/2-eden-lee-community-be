@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -18,9 +19,10 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String resourcePath = "file:" + System.getProperty("user.dir") + "/images/";
+        String resourcePath = "file:" + System.getProperty("user.dir") + "/uploads/";
 
-        registry.addResourceHandler("/images/**")
+        System.out.println(resourcePath);
+        registry.addResourceHandler("/uploads/**")
                 .addResourceLocations(resourcePath);
     }
 }
