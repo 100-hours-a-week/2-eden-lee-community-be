@@ -25,7 +25,6 @@
 ## **설치 및 실행 방법**
 
 ```bash
-설치 (터미널)
 git clone https://github.com/100-hours-a-week/2-eden-lee-community-be
 cd 2-eden-lee-community-be
 ./gradlew build   # 또는 ./gradlew clean build
