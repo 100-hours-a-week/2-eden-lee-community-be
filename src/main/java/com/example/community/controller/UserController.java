@@ -4,9 +4,7 @@ import com.example.community.apiPayload.ApiResponse;
 import com.example.community.dto.user.*;
 import com.example.community.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/users")

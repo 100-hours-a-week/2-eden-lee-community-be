@@ -1,6 +1,8 @@
 package com.example.community.config;
 
+import com.example.community.repository.UserRepository;
 import com.example.community.security.JwtFilter;
+import com.example.community.security.JwtTokenProvider;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +23,13 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private final JwtFilter jwtFilter;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final UserRepository userRepository;
+
+    @Bean
+    public JwtFilter jwtFilter() {
+        return new JwtFilter(jwtTokenProvider, userRepository);
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -35,7 +43,7 @@ public class SecurityConfig {
             )
             .httpBasic(Customizer.withDefaults())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
 
         http.exceptionHandling(e -> e
                 .authenticationEntryPoint((request, response, authException) -> {
