@@ -21,7 +21,7 @@ public class AuthService {
 
     @Transactional(readOnly = true)
     public LoginResponseDto login(String email, String password) {
-        User user = userRepository.findByEmailAndPassword(email, password)
+        User user = userRepository.findActiveUserByEmailAndPassword(email, password)
                 .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
 
         if (user.getDeletedAt() != null) {
