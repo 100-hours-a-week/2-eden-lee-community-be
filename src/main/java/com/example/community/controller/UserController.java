@@ -15,7 +15,6 @@ public class UserController {
     @PostMapping("")
     public ApiResponse<UserCreateResponseDto> createUser(@ModelAttribute UserCreateRequestDto request) {
 
-        System.out.println(request.getProfileImage());
         UserCreateResponseDto data = userService.createUser(request.getEmail(),
                 request.getPassword(),
                 request.getNickname(),
