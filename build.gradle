@@ -36,6 +36,9 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testImplementation 'org.mockito:mockito-inline:5.2.0' // 인라인 모킹 지원
+	testImplementation 'org.springframework.security:spring-security-test' // security 관련 테스트 도우미
+
 }
 
 tasks.named('test') {
