@@ -4,12 +4,10 @@ import com.example.community.dto.auth.LoginRequestDto;
 import com.example.community.dto.auth.LoginResponseDto;
 import com.example.community.service.AuthService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.data.domain.AuditorAware;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -35,7 +33,7 @@ class AuthControllerTest {
     @Test
     void 로그인_테스트() throws Exception {
         // given
-        LoginRequestDto requestDto = new LoginRequestDto("juile0827@naver.com", "Test0827!!");
+        LoginRequestDto requestDto = new LoginRequestDto("test1234@naver.com", "Test0827!!");
         LoginResponseDto responseDto = new LoginResponseDto(1L, "access-token", "refresh-token");
 
         given(authService.login(requestDto.getEmail(), requestDto.getPassword()))
@@ -50,6 +48,6 @@ class AuthControllerTest {
                 .andExpect(jsonPath("$.result.access_token").value("access-token"))
                 .andExpect(jsonPath("$.result.refresh_token").value("refresh-token"));
 
-        verify(authService).login("juile0827@naver.com", "Test0827!!");
+        verify(authService).login("test1234@naver.com", "Test0827!!");
     }
 }
